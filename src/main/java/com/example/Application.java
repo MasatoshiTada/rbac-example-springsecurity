@@ -4,10 +4,12 @@ import com.example.models.Permission;
 import com.example.models.Role;
 import com.example.models.User;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -36,6 +38,9 @@ public class Application implements CommandLineRunner {
 
     @PersistenceContext
     EntityManager em;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     /**
      * Add Data of Permission, Role, and User
@@ -72,19 +77,19 @@ public class Application implements CommandLineRunner {
         }});
         em.persist(guestRole);
 
-        User guestUser = new User("guest", "guest", "guest", "guest");
+        User guestUser = new User("guest", "guest", "guest", passwordEncoder.encode("guest"));
         guestUser.setRoles(new HashSet<Role>(){{
             add(guestRole);
         }});
         em.persist(guestUser);
 
-        User developerUser = new User("developer", "developer", "developer", "developer");
+        User developerUser = new User("developer", "developer", "developer", passwordEncoder.encode("developer"));
         developerUser.setRoles(new HashSet<Role>(){{
             add(developerRole);
         }});
         em.persist(developerUser);
 
-        User adminUser = new User("admin", "admin", "admin", "admin");
+        User adminUser = new User("admin", "admin", "admin", passwordEncoder.encode("admin"));
         adminUser.setRoles(new HashSet<Role>(){{
             add(adminRole);
         }});
