@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
+<head>
+    <title>Forbidden</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="ui warning icon message">
+        <i class="yellow warning sign icon"></i>
+        <div class="content">
+            <div class="header">
+                Forbidden
+            </div>
+            <p>You don't be permitted to access this page.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

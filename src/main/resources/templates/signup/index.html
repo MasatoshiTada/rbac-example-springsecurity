@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
+<head>
+    <title>Signup</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <style>
+        body {
+            background-color: #DADADA;
+        }
+        .container > .grid {
+            height: 100%;
+        }
+        .column {
+            max-width: 450px;
+        }
+    </style>
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <h2 class="ui teal header">
+                <div class="content">
+                    Signup
+                </div>
+            </h2>
+            <form class="ui large form" method="post" th:action="@{/signup}">
+                <div class="ui stacked segment">
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input type="text" name="account" placeholder="Account">
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <div class="ui left input">
+                                <input type="text" name="firstName" placeholder="First name">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left input">
+                                <input type="text" name="lastName" placeholder="Last name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            <input type="password" name="password" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class=""></i>
+                            <select name="role">
+                                <option value="admin">Administrator</option>
+                                <option value="developer">Developer</option>
+                                <option value="guest" selected>Guest</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="ui fluid large teal submit button">Signup</button>
+                </div>
+
+                <div class="ui error message"></div>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

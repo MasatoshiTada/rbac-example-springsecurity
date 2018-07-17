@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
+<head>
+    <title>New issue</title>
+</head>
+<body>
+<div layout:fragment="content">
+<h1>New issue</h1>
+    <form class="ui large form" method="post" th:action="@{/issues/}">
+        <div class="field">
+            <label>Subject</label>
+            <input type="text" name="subject" placeholder="Subject"/>
+        </div>
+        <div class="field">
+            <label>Description</label>
+            <textarea name="description"></textarea>
+        </div>
+        <button type="submit" class="ui primary button">create</button>
+    </form>
+</div>
+</body>
+</html>

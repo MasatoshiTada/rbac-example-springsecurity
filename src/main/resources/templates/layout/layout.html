@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <link href="https://cdn.jsdelivr.net/semantic-ui/2.1.6/semantic.min.css" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/example.css}" href="../../static/css/example.css" rel="stylesheet" type="text/css"/>
+    <meta charset="utf-8">
+</head>
+<body>
+<div class="ui fixed inverted menu">
+    <div class="ui container">
+        <a href="#" class="header item">
+            RBAC Example
+        </a>
+        <a th:href="@{/}" href="../index.html" class="item"
+           sec:authorize="isAuthenticated()">
+            Home
+        </a>
+        <a th:href="@{/issues/}" href="../issue/list.html" class="item"
+           sec:authorize="isAuthenticated() and hasAuthority('readIssue')">
+            Issue
+        </a>
+        <a th:href="@{/users/}" href="../userAdmin/list.html" class="item"
+           sec:authorize="isAuthenticated() and hasAuthority('manageUser')">
+            Users
+        </a>
+
+        <div class="right item">
+            <form method="post" th:action="@{/logout}" action="../login/index.html">
+                <button class="ui button" type="submit">
+                    <i class="ui sign out icon"></i>Logout
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="ui main container" layout:fragment="content">
+    <!-- Fragment will be inserted here -->
+</div>
+</body>
+</html>
