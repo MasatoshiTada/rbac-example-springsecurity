@@ -17,13 +17,17 @@ import javax.persistence.PersistenceContext;
 @Service
 public class UserPrincipalService implements UserDetailsService {
 
+    private EntityManager entityManager;
+
     @PersistenceContext
-    EntityManager em;
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String account) throws UsernameNotFoundException {
         try {
-            User user = em
+            User user = entityManager
                     .createQuery("SELECT u FROM User u LEFT JOIN FETCH u.roles r LEFT JOIN FETCH r.permissions p WHERE u.account = :account", User.class)
                     .setParameter("account", account)
                     .getSingleResult();
