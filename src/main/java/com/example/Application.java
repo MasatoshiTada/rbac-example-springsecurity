@@ -3,12 +3,10 @@ package com.example;
 import com.example.models.Permission;
 import com.example.models.Role;
 import com.example.models.User;
-import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,15 +23,6 @@ public class Application implements CommandLineRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-    }
-
-    /**
-     * Add Thymeleaf Layout Dialect
-     * @see https://ultraq.github.io/thymeleaf-layout-dialect/Installation.html
-     */
-    @Bean
-    public LayoutDialect layoutDialect() {
-        return new LayoutDialect();
     }
 
     @PersistenceContext
@@ -57,7 +46,7 @@ public class Application implements CommandLineRunner {
         em.persist(manageUser);
 
         Role adminRole = new Role("admin");
-        adminRole.setPermissions(new HashSet<Permission>() {{
+        adminRole.setPermissions(new HashSet<>() {{
             add(readIssue);
             add(writeIssue);
             add(manageUser);
@@ -65,32 +54,32 @@ public class Application implements CommandLineRunner {
         em.persist(adminRole);
 
         Role developerRole = new Role("developer");
-        developerRole.setPermissions(new HashSet<Permission>() {{
+        developerRole.setPermissions(new HashSet<>() {{
             add(readIssue);
             add(writeIssue);
         }});
         em.persist(developerRole);
 
         Role guestRole = new Role("guest");
-        guestRole.setPermissions(new HashSet<Permission>() {{
+        guestRole.setPermissions(new HashSet<>() {{
             add(readIssue);
         }});
         em.persist(guestRole);
 
         User guestUser = new User("guest", "guest", "guest", passwordEncoder.encode("guest"));
-        guestUser.setRoles(new HashSet<Role>(){{
+        guestUser.setRoles(new HashSet<>(){{
             add(guestRole);
         }});
         em.persist(guestUser);
 
         User developerUser = new User("developer", "developer", "developer", passwordEncoder.encode("developer"));
-        developerUser.setRoles(new HashSet<Role>(){{
+        developerUser.setRoles(new HashSet<>(){{
             add(developerRole);
         }});
         em.persist(developerUser);
 
         User adminUser = new User("admin", "admin", "admin", passwordEncoder.encode("admin"));
-        adminUser.setRoles(new HashSet<Role>(){{
+        adminUser.setRoles(new HashSet<>(){{
             add(adminRole);
         }});
         em.persist(adminUser);

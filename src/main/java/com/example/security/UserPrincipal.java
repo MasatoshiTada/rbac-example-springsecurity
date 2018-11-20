@@ -1,18 +1,11 @@
 package com.example.security;
 
 import com.example.models.User;
-import lombok.Data;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.security.Principal;
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @author kawasima
