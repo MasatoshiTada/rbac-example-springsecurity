@@ -3,6 +3,7 @@ package com.example.controllers;
 import com.example.models.Issue;
 import com.example.security.UserPrincipal;
 import com.example.services.IssueService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +17,10 @@ import java.util.List;
  * @author tada
  */
 @Controller
+@RequiredArgsConstructor
 public class IssueController {
 
     private final IssueService issueService;
-
-    public IssueController(IssueService issueService) {
-        this.issueService = issueService;
-    }
 
     @GetMapping("/issues/")
     public String list(Model model) {

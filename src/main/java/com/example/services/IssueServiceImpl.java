@@ -2,6 +2,7 @@ package com.example.services;
 
 import com.example.models.Issue;
 import com.example.repositories.IssueRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,13 +14,10 @@ import java.util.List;
  * @author tada
  */
 @Service
+@RequiredArgsConstructor
 public class IssueServiceImpl implements IssueService {
 
     private final IssueRepository issueRepository;
-
-    public IssueServiceImpl(IssueRepository issueRepository) {
-        this.issueRepository = issueRepository;
-    }
 
     @PreAuthorize("hasAuthority('readIssue')")
     @Transactional(readOnly = true)
