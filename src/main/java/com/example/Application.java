@@ -37,7 +37,7 @@ public class Application implements CommandLineRunner {
     @Transactional
     @Override
     public void run(String... args) throws Exception {
-        Permission readIssue =  new Permission("readIssue");
+        Permission readIssue = new Permission("readIssue");
         Permission writeIssue = new Permission("writeIssue");
         Permission manageUser = new Permission("manageUser");
 
@@ -67,19 +67,19 @@ public class Application implements CommandLineRunner {
         em.persist(guestRole);
 
         User guestUser = new User("guest", "guest", "guest", passwordEncoder.encode("guest"));
-        guestUser.setRoles(new HashSet<>(){{
+        guestUser.setRoles(new HashSet<>() {{
             add(guestRole);
         }});
         em.persist(guestUser);
 
         User developerUser = new User("developer", "developer", "developer", passwordEncoder.encode("developer"));
-        developerUser.setRoles(new HashSet<>(){{
+        developerUser.setRoles(new HashSet<>() {{
             add(developerRole);
         }});
         em.persist(developerUser);
 
         User adminUser = new User("admin", "admin", "admin", passwordEncoder.encode("admin"));
-        adminUser.setRoles(new HashSet<>(){{
+        adminUser.setRoles(new HashSet<>() {{
             add(adminRole);
         }});
         em.persist(adminUser);

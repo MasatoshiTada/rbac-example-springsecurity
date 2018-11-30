@@ -27,7 +27,7 @@ public class UserRepositoryImpl implements UserRepository {
         Role role = entityManager.createQuery("SELECT r FROM Role r WHERE r.name = :name", Role.class)
                 .setParameter("name", roleName)
                 .getSingleResult();
-        user.setRoles(new HashSet<Role>(){{
+        user.setRoles(new HashSet<>() {{
             add(role);
         }});
         entityManager.merge(user);

@@ -22,7 +22,7 @@ public class UserPrincipal implements UserDetails {
                 .flatMap(role -> role.getPermissions().stream())
                 .map(permission -> permission.getName())
                 .toArray(String[]::new);
-        this.authorities =  AuthorityUtils.createAuthorityList(permissions);
+        this.authorities = AuthorityUtils.createAuthorityList(permissions);
     }
 
     public User getUser() {
