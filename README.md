@@ -4,6 +4,8 @@ This application is an example of role based access control using Spring Securit
 
 Original(Ninja Framework) : https://github.com/kawasima/rbac-example by @kawasima
 
+@kawasima's blog(Japanese) -> https://qiita.com/kawasima/items/8dd7eda743f2fdcad78e
+
 ## Get started
 
 ```bash
