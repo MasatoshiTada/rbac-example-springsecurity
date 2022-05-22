@@ -13,6 +13,7 @@ import java.util.Set;
  * @author tada
  */
 @Entity
+@Table(name = "USERS")
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
