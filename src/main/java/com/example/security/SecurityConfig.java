@@ -5,49 +5,51 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 /**
  * @author tada
  */
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        // Spring Security ignores URLs of static resources
-        web.ignoring().requestMatchers(
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        // Spring Security ignores URLs for static resources
+        return web -> web.ignoring().requestMatchers(
                 PathRequest.toStaticResources().atCommonLocations());
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        // configure login
-        http.formLogin()
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.formLogin(formLogin -> formLogin
+                // configure login
                 .loginPage("/login")
                 .usernameParameter("account")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/", true)
-                .permitAll();
-        // configure logout
-        http.logout()
+                .permitAll()
+        ).logout(logout -> logout
+                // configure logout
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")
                 .permitAll()
-                .invalidateHttpSession(true);
-        // configure URL authorization
-        http.authorizeRequests()
+                .invalidateHttpSession(true)
+        ).authorizeRequests(authorize -> authorize  // TODO authorizeHttpRequests()を使うべきか調査
+                // configure URL authorization
                 .mvcMatchers("/signup").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/issues/").hasAuthority("readIssue")
                 .mvcMatchers(HttpMethod.GET, "/issue/new").hasAuthority("writeIssue")
                 .mvcMatchers(HttpMethod.POST, "/issues/").hasAuthority("writeIssue")
                 .mvcMatchers("/users").hasAuthority("manageUser")
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+        );
+        return http.build();
     }
 
     @Bean
