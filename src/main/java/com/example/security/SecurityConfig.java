@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/login")
                 .permitAll()
                 .invalidateHttpSession(true)
-        ).authorizeRequests(authorize -> authorize  // TODO authorizeHttpRequests()を使うべきか調査
+        ).authorizeHttpRequests(authorize -> authorize
                 // configure URL authorization
                 .mvcMatchers("/signup").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/issues/").hasAuthority("readIssue")
