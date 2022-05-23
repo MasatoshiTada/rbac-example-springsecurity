@@ -19,13 +19,6 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        // Spring Security ignores URLs for static resources
-        return web -> web.ignoring().requestMatchers(
-                PathRequest.toStaticResources().atCommonLocations());
-    }
-
-    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.formLogin(formLogin -> formLogin
                 // configure login
@@ -42,6 +35,7 @@ public class SecurityConfig {
                 .invalidateHttpSession(true)
         ).authorizeHttpRequests(authorize -> authorize
                 // configure URL authorization
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .mvcMatchers("/signup").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/issues/").hasAuthority("readIssue")
                 .mvcMatchers(HttpMethod.GET, "/issue/new").hasAuthority("writeIssue")
